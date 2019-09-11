@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 import static org.junit.Assert.assertTrue;
 
@@ -77,6 +78,30 @@ public class GoogleSeleniumTest {
         Thread.sleep(5000);
 
     }
+
+    @Test
+    public void selectAndMultiListTest() throws InterruptedException{
+        driver.manage().window().maximize();
+        driver.get("https://www.seleniumeasy.com/test/basic-select-dropdown-demo.html");
+        Thread.sleep(2000);
+        Select slist = new Select(driver.findElement(By.id("select-demo")));
+        slist.selectByVisibleText("Wednesday");
+        Thread.sleep(2000);
+        Select mlist = new Select(driver.findElement(By.id("multi-select")));
+        mlist.selectByVisibleText("California");
+        mlist.selectByIndex(1);
+        Thread.sleep(2000);
+        WebElement firstSel = driver.findElement(By.id("printMe"));
+        assertTrue(firstSel.isDisplayed());
+        firstSel.click();
+        Thread.sleep(2000);
+        WebElement allSel = driver.findElement(By.id("printAll"));
+        assertTrue(allSel.isDisplayed());
+        allSel.click();
+        Thread.sleep(2000);
+
+    }
+
 
     @Test
     public void searchTest() throws InterruptedException {
