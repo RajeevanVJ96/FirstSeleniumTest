@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -42,6 +43,14 @@ public class GoogleSeleniumTest {
         Thread.sleep(5000);
         WebElement linkToBiggerPicture = driver.findElementByLinkText("Images for funny cat");
         linkToBiggerPicture.click();
+        WebElement selectedpic = driver.findElement(By.id("QiDMQ0Uiqd5jnM:"));
+        selectedpic.click();
+        Thread.sleep(5000);
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("window.scrollBy(0,250)");
+        Thread.sleep(5000);
+        jse.executeScript("scroll(0, -250);");
+        Thread.sleep(5000);
 
     }
 
