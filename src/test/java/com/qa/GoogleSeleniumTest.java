@@ -48,6 +48,37 @@ public class GoogleSeleniumTest {
     }
 
     @Test
+    public void checkboxTest() throws InterruptedException{
+        driver.manage().window().maximize();
+        driver.get("https://www.seleniumeasy.com/test/basic-checkbox-demo.html");
+        Thread.sleep(5000);
+        WebElement chk1 = driver.findElementById("check1");
+        assertTrue(chk1.isDisplayed());
+        chk1.click();
+        Thread.sleep(5000);
+        chk1.click();
+        Thread.sleep(5000);
+        WebElement radio1 = driver.findElementByXPath("//*[@id=\"easycont\"]/div/div[2]/div[2]/div[2]/div[1]/label/input");
+        assertTrue(radio1.isDisplayed());
+        radio1.click();
+        WebElement radio2 = driver.findElementByXPath("//*[@id=\"easycont\"]/div/div[2]/div[2]/div[2]/div[2]/label/input");
+        assertTrue(radio2.isDisplayed());
+        radio2.click();
+        WebElement radio3 = driver.findElementByXPath("//*[@id=\"easycont\"]/div/div[2]/div[2]/div[2]/div[3]/label/input");
+        assertTrue(radio3.isDisplayed());
+        radio3.click();
+        WebElement radio4 = driver.findElementByXPath("//*[@id=\"easycont\"]/div/div[2]/div[2]/div[2]/div[4]/label/input");
+        assertTrue(radio4.isDisplayed());
+        radio4.click();
+        Thread.sleep(5000);
+        WebElement submit = driver.findElementById("check1");
+        assertTrue(submit.isDisplayed());
+        submit.click();
+        Thread.sleep(5000);
+
+    }
+
+    @Test
     public void searchTest() throws InterruptedException {
         driver.manage().window().maximize();
         driver.get("http://google.com");
