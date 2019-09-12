@@ -1,19 +1,28 @@
 package com.qa;
 
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
+
+import javax.swing.*;
 
 import static org.junit.Assert.assertTrue;
 
 public class GoogleSeleniumTest {
 
     private ChromeDriver driver;
+    static ExtentTest test;
+    static ExtentReports extent;
 
     @Before
     public void setUp(){
@@ -29,6 +38,49 @@ public class GoogleSeleniumTest {
     public void tearDown(){
         driver.close();
     }
+
+    @Test
+    public void sliderTest() throws InterruptedException {
+        extent = new ExtentReports("C:\\Users\\Admin\\Documents\\Week-6\\Test Reports\\slider.html", true);
+        test = extent.startTest("Testing Slide");
+        driver.manage().window().maximize();
+        driver.get("https://www.seleniumeasy.com/test/drag-drop-range-sliders-demo.html");
+        Actions drag = new Actions(driver);
+        WebElement slide = driver.findElement(By.xpath("//*[@id=\"slider1\"]/div/input"));
+        drag.dragAndDropBy(slide, 100, 0).perform();
+        WebElement smth = driver.findElement(By.id("range"));
+        String value = smth.getText();
+        if (value.equals("75")){
+            test.log(LogStatus.PASS, "slid the slider" );
+        }else{
+            test.log(LogStatus.FAIL, "Didnt slide" );
+        }
+        extent.endTest(test);
+        extent.flush();
+
+
+    }
+
+    @Test
+    public void dragAndDropTest() throws InterruptedException {
+        extent = new ExtentReports("C:\\Users\\Admin\\Documents\\Week-6\\Test Reports", true);
+        test = extent.startTest("Testing Drag and Drop");
+        driver.manage().window().maximize();
+        driver.get("https://www.seleniumeasy.com/test/drag-and-drop-demo.html");
+        test.log(LogStatus.INFO, "Browser started..");
+        Thread.sleep(5000);
+        Actions drag = new Actions(driver);
+        WebElement src = driver.findElementByXPath("//*[@id=\"todrag\"]/span[1]");
+        WebElement target = driver.findElementByXPath("//*[@id=\"mydropzone\"]");
+        test.log(LogStatus.INFO, "About to drag and drop..");
+        drag.clickAndHold(src).moveToElement(target).release(target).perform();
+        Thread.sleep(5000);
+        test.log(LogStatus.FAIL, "Didnt drag and drop" );
+        Thread.sleep(5000);
+
+    }
+
+
 
     @Test
     public void twoInputTest() throws InterruptedException{
